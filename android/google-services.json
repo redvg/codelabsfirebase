@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "904211686229",
+    "firebase_url": "https://codelabsfirebase-4629c.firebaseio.com",
+    "project_id": "codelabsfirebase-4629c",
+    "storage_bucket": "codelabsfirebase-4629c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904211686229:android:714925a06b0992af",
+        "android_client_info": {
+          "package_name": "com.example.codelabsfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "904211686229-1mogbuihq9giipvuls2psp1qshargitf.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "904211686229-1mogbuihq9giipvuls2psp1qshargitf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3IsuqC3zbGnxD1OumKX42W4afWKZwc_w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
