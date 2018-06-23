@@ -26,9 +26,33 @@ class HomePage extends StatelessWidget{
 
   final String title;
 
+  final SnackBar snackBar = const SnackBar(
+
+    content: Text('unvoted'),
+  );
+
   const HomePage({Key key, this.title}) : super(key: key);
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot documentSnapshot){
+    
+    final SnackBar snackBarAction = SnackBar(
+
+    content: Text('vote recorded'),
+
+    action: SnackBarAction(
+
+      label: 'unvote',
+
+      onPressed: () => Firestore.instance.runTransaction((transaction) async {
+
+        DocumentSnapshot freshDocumentSnapshot = await transaction.get(documentSnapshot.reference);
+
+        await transaction.update(freshDocumentSnapshot.reference, {'votes': freshDocumentSnapshot['votes'] - 1});
+
+        Scaffold.of(context).showSnackBar(snackBar);
+      }),
+    ),
+    );
 
     return new ListTile(
 
@@ -67,6 +91,8 @@ class HomePage extends StatelessWidget{
         DocumentSnapshot freshDocumentSnapshot = await transaction.get(documentSnapshot.reference);
 
         await transaction.update(freshDocumentSnapshot.reference, {'votes': freshDocumentSnapshot['votes'] + 1});
+
+        Scaffold.of(context).showSnackBar(snackBarAction);
       }),
     );
   }
