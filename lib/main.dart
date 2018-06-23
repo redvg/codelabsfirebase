@@ -28,6 +28,49 @@ class HomePage extends StatelessWidget{
 
   const HomePage({Key key, this.title}) : super(key: key);
 
+  Widget _buildListItem(BuildContext context, DocumentSnapshot documentSnapshot){
+
+    return new ListTile(
+
+      key: new ValueKey(documentSnapshot.documentID),
+
+      title: new Container(
+
+        decoration: new BoxDecoration(
+
+          border: new Border.all(
+
+            color: const Color(0x80000000),
+          ),
+
+          borderRadius: new BorderRadius.circular(5.0),
+        ),
+
+        padding: const EdgeInsets.all(10.0),
+
+        child: new Row(
+
+          children: <Widget>[
+
+            new Expanded(
+
+              child: new Text(documentSnapshot['name']),
+            ),
+
+            new Text(documentSnapshot['votes'].toString(),)
+          ],
+        ),
+      ),
+      
+      onTap: () => Firestore.instance.runTransaction((transaction) async {
+
+        DocumentSnapshot freshDocumentSnapshot = await transaction.get(documentSnapshot.reference);
+
+        await transaction.update(freshDocumentSnapshot.reference, {'votes': freshDocumentSnapshot['votes'] + 1});
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context){
 
@@ -54,14 +97,9 @@ class HomePage extends StatelessWidget{
               top: 10.0,
             ),
 
-            itemExtent: 25.0,
+            itemExtent: 55.0,
 
-            itemBuilder: (context, index) {
-
-              DocumentSnapshot documentSnapshot = snapshot.data.documents[index];
-
-              return new Text('${documentSnapshot['name']} ${documentSnapshot['votes']}');
-            },
+            itemBuilder:  (context, index) => _buildListItem(context, snapshot.data.documents[index]),
           );
         },
       ),
